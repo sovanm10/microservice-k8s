@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: order-service
+    
+db:
+  dbName: ${DB_NAME}
+  dbUser:  ${DB_USER}
+  dbPassword: /etc/secret-volume/password
+  
+  
+server:
+  port: 8080
+  
