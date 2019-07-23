@@ -4,3 +4,4 @@ metadata:
   name: microservice-k8s-configmap
 data:
   order-database-name: orderDB
+  customer-database-name: customerDB

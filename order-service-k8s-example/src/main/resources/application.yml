@@ -5,7 +5,7 @@ spring:
 db:
   dbName: ${DB_NAME}
   dbUser:  ${DB_USER}
-  dbPassword: /etc/secret-volume/password
+  dbPassword: /etc/secret-volume/order_password
   
   
 server:

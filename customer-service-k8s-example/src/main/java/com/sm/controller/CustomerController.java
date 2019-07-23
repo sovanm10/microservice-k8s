@@ -19,7 +19,7 @@ public class CustomerController {
 	@GetMapping("/customer")
 	public String getOrders() {
 		log.info("<<<<CustomerController>>>>>>>>>");
-		return "Hi, I am from Customer Service";
+		return "Hi, I am from Customer Service. Do you need any help?";
 	}
 
 }

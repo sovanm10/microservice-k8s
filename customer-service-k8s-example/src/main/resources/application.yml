@@ -1,2 +1,14 @@
+spring:
+  application:
+    name: customer-service
+    
+db:
+  dbName: ${DB_NAME}
+  dbUser:  ${DB_USER}
+  dbPassword: /etc/secret-volume/customer_password
+
+
+
+
 server: 
   port: 8081

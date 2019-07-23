@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: order-service
+  name: customer-service
   labels: 
-    app: order-service
+    app: customer-service
 spec: 
-  replicas: 2
+  replicas: 1
   selector: 
     matchLabels: 
-      app: order-service
+      app: customer-service
   template: 
     metadata: 
       labels: 
-        app: order-service
+        app: customer-service
     spec: 
   #    hostAliases:
   #      - ip: "192.168.99.103"
   #        hostnames:
   #          - "kubeall.com"
       containers:
-      - name: order-service
-        image: med/order-service:2.0
+      - name: customer-service
+        image: med/customer-service:1.0
         imagePullPolicy: Never
         volumeMounts: 
         - name: secret-volume
@@ -31,32 +31,32 @@ spec:
         - name: DB_NAME
           valueFrom: 
             configMapKeyRef:
-              name: order-service
-              key: database-name
+              name: microservice-k8s-configmap
+              key: customer-database-name
         - name: DB_USER
           valueFrom: 
             secretKeyRef:
-              name: order-service
-              key: database-user
+              name: microservice-k8s-secret
+              key: customer-database-user
       volumes: 
           - name: secret-volume
             secret: 
-                secretName: order-service
+                secretName: microservice-k8s-secret
                 items:
-                  - key: database-user
-                    path: user 
-                  - key: database-password
-                    path: password 
+                  - key: customer-database-user
+                    path: customer_user 
+                  - key: customer-database-password
+                    path: customer_password 
 ---    
 apiVersion: v1
 kind: Service
 metadata:
-  name: order-service
+  name: customer-service
 spec:
   selector:
-    app: order-service
+    app: customer-service
   ports:
   - protocol: TCP
-    port: 8080
-    nodePort: 30002
+    port: 8081
+    nodePort: 30004
   type: LoadBalancer
