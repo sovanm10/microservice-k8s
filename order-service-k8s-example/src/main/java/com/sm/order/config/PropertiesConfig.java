@@ -1,4 +1,4 @@
-package com.sm.config;
+package com.sm.order.config;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
