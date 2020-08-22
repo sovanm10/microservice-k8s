@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-service-k8s-configmap
+data:
+  db.dbName: orderDB
+  service.customer_service.host: http://smcustomer.com

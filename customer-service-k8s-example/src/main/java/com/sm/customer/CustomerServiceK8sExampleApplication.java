@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
-@EnableFeignClients
+@EnableFeignClients("com.sm.customer.client")
 public class CustomerServiceK8sExampleApplication {
 
 	public static void main(String[] args) {

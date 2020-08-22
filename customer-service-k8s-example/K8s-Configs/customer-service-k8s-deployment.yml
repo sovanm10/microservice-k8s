@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: customer-service
+  labels: 
+    app: customer-service
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: customer-service
+  template: 
+    metadata: 
+      labels: 
+        app: customer-service
+    spec: 
+      containers: 
+      - name: customer-service
+        image: sm/customer-service:1.0
+        imagePullPolicy: Never
+        volumeMounts: 
+        - name: secret-volume
+          mountPath: /etc/secret-volume
+          subPath: secret.jks
+        ports: 
+        - containerPort: 8080
+        env:
+        - name: db.dbUser
+          valueFrom: 
+            secretKeyRef:
+              name: customer-service-k8s-secret
+              key: customer-database-user
+        - name: db.dbPassword
+          valueFrom: 
+            secretKeyRef:
+              name: customer-service-k8s-secret
+              key: customer-database-password      
+        envFrom:      
+            configMapRef:
+              name: customer-service-k8s-configmap
+      volumes: 
+          - name: secret-volume
+            secret: 
+                secretName: sm-identity
+                items:
+                  - key: sm-identity
+                    path: secret.jks
+                  
+---    
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer-service
+spec:
+  selector:
+    app: customer-service
+  ports:
+  - protocol: TCP
+    port: 8081
+    nodePort: 30004
+  type: LoadBalancer

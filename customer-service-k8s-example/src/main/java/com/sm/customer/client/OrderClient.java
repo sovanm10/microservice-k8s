@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.sm.customer.model.Order;
 
-@FeignClient(name = "${service.order_service.name}")
+@FeignClient(name = "${service.order_service.name}",url="${service.order_service.url}")
 public interface OrderClient {
-	 @GetMapping(value = "/order/{customerId}")
-	 List<Order> getOrdersByCustomers(@PathVariable("customerId") String customerId);
+	 @GetMapping(value = "/v1/order/customer/{customerId}")
+	 List<Order> getOrdersByCustomer(@PathVariable("customerId") String customerId);
 }

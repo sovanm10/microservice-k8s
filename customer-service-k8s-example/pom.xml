@@ -14,7 +14,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>customer-service-k8s-example</name>
 	<description>Demo project for Spring Boot</description>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -55,15 +55,15 @@
 
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-openfeign</artifactId>
-			<version>2.1.1.RELEASE</version>
+			<artifactId>spring-cloud-starter-feign</artifactId>
+			<version>1.4.4.RELEASE</version>  
 		</dependency>
-		
+
 		<dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-kubernetes-netflix</artifactId>
-            <version>0.2.0.RELEASE</version>
-        </dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-kubernetes-netflix</artifactId>
+			<version>0.2.0.RELEASE</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>

@@ -17,5 +17,5 @@ import lombok.Data;
 public class OrderDetails {
 	private String orderDetailsId;
 	private String orderId;
-	private String Item;
+	private String item;
 }

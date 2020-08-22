@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: order-service
+  labels: 
+    app: order-service
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: order-service
+  template: 
+    metadata: 
+      labels: 
+        app: order-service
+    spec: 
+      containers:
+      - name: order-service
+        image: sm/order-service:1.0
+        imagePullPolicy: Never
+        ports: 
+        - containerPort: 8080
+        env:
+        - name: db.dbUser
+          valueFrom: 
+            secretKeyRef:
+              name: order-service-k8s-secret
+              key: order-database-user
+        - name: db.dbPassword
+          valueFrom: 
+            secretKeyRef:
+              name: order-service-k8s-secret
+              key: order-database-user
+        envFrom:      
+        -configMapRef: 
+              name: order-service-k8s-configmap
+        volumeMounts: 
+        - name: secret-volume
+          mountPath: /etc/secret-volume
+          subPath: secret.jks
+      volumes: 
+          - name: secret-volume
+            secret: 
+                secretName: sm-identity
+                items:
+                  - key: sm-identity
+                    path: secret.jks
+      nodeSelector:
+          disktype: ssd           
+---    
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+spec:
+  selector:
+    app: order-service
+  ports:
+  - protocol: TCP
+    port: 8080
+    nodePort: 30002
+  type: LoadBalancer
